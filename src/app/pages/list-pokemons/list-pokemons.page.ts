@@ -19,7 +19,7 @@ export class ListPokemonsPage implements OnInit {
     this.morePokemons();
   }
 
-  morePokemons() {
+  morePokemons($event = null) {
     const promise = this.pokemosService.getPokemon();
     if (promise) {
       promise
@@ -28,6 +28,9 @@ export class ListPokemonsPage implements OnInit {
 
           this.pokemons = this.pokemons.concat(result);
           console.log(this.pokemons);
+          if ($event) {
+            $event.target.complete();
+          }
         })
         .catch((error) => {
           console.error('Error fetching pokemons:', error);

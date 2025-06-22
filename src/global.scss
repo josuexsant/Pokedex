@@ -35,3 +35,19 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-text {
+  color : var(--ion-color-dark);
+  font-size: 1.2rem;
+}
+
+ion-content {
+  --background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+}
+
+ion-header {
+  background: url('assets/img/pokedex-header.png') no-repeat center center;
+  background-size: cover;
+  max-height: 56px;
+}
+
