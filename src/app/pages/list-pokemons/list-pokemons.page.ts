@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Pokemon } from 'src/app/models/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { NavParams, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-pokemons',
@@ -11,7 +13,12 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 export class ListPokemonsPage implements OnInit {
   public pokemons: Pokemon[];
 
-  constructor(private pokemosService: PokemonService) {
+  constructor(
+    private pokemosService: PokemonService,
+    private loading: LoadingController,
+    private navParams: NavParams,
+    private navController: NavController
+  ) {
     this.pokemons = [];
   }
 
@@ -19,9 +26,16 @@ export class ListPokemonsPage implements OnInit {
     this.morePokemons();
   }
 
-  morePokemons($event = null) {
+  async morePokemons($event = null) {
     const promise = this.pokemosService.getPokemon();
     if (promise) {
+      if (!$event) {
+        let loading = await this.loading.create({
+          message: 'Cargando...',
+        });
+        await loading.present();
+      }
+
       promise
         .then((result: Pokemon[]) => {
           console.log(result);
@@ -31,10 +45,19 @@ export class ListPokemonsPage implements OnInit {
           if ($event) {
             $event.target.complete();
           }
+
+          if (this.loading) {
+            this.loading.dismiss();
+          }
         })
         .catch((error) => {
           console.error('Error fetching pokemons:', error);
         });
     }
+  }
+
+  goToDetail(pokemon: Pokemon) {
+    this.navParams.data['pokemon'] = pokemon;
+    this.navController.navigateForward('/detail-pokemon');
   }
 }
