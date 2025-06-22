@@ -70,6 +70,7 @@ export class PokemonService {
               if (hiddenAbility) {
                 pokemonObj.hiddenAbility = hiddenAbility.ability.name;
               }
+              pokemonObj.stats = pokemonData.stats;
 
               pokemons.push(pokemonObj);
             }

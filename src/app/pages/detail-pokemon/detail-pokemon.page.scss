@@ -1,29 +1,47 @@
 /* ===== POKEMON CARD STYLES ===== */
 
-/* Basic Pokemon Card Style - HOLOGRAPHIC BY DEFAULT */
+/* Basic Pokemon Card Style - Clean Cream Design */
 ion-card {
-  --background: linear-gradient(135deg, #f8ffae 0%, #43cea2 100%);
+  background: #faf8f3; /* Fondo crema */
   margin: 10px;
   border-radius: 15px;
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 2px 8px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border: 4px solid transparent;
-  background-clip: padding-box;
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e8e3d8;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
-/* Holographic Border Animation (Default) */
-ion-card::after {
+/* Hover Effect for Card - Subtle */
+ion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== HOLOGRAPHIC EFFECT ONLY FOR POKEMON IMAGE ===== */
+
+/* Pokemon Image Container */
+.pokemon-image {
+  position: relative;
+  margin: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8ffae 0%, #43cea2 100%);
+  padding: 10px;
+}
+
+/* Holographic Border for Image */
+.pokemon-image::after {
   content: '';
   position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
   background: linear-gradient(
     45deg,
     #ffd700, #ff6b6b, #74b9ff, #feca57, #ff9ff3, #54a0ff, #ffd700
@@ -41,8 +59,8 @@ ion-card::after {
   75% { background-position: 0% 100%; }
 }
 
-/* Holographic Effect */
-ion-card::before {
+/* Holographic Shine Effect on Image */
+.pokemon-image::before {
   content: '';
   position: absolute;
   top: 0;
@@ -52,31 +70,22 @@ ion-card::before {
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 70%
   );
   transform: translateX(-100%);
   transition: transform 0.6s ease;
-  z-index: 1;
+  z-index: 2;
+  border-radius: 15px;
 }
 
 /* Holographic Animation on Hover */
-ion-card:hover::before {
+ion-card:hover .pokemon-image::before {
   transform: translateX(100%);
 }
 
-/* Enhanced Hover Effect - Enhanced Holographic */
-ion-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.4),
-    0 8px 20px rgba(0, 0, 0, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(255, 215, 0, 0.5);
-}
-
-/* Enhanced Holographic Animation on Hover */
-ion-card:hover::after {
+/* Enhanced Animation on Hover */
+ion-card:hover .pokemon-image::after {
   animation: holographicBorderFast 1.5s ease infinite;
 }
 
@@ -87,14 +96,24 @@ ion-card:hover::after {
   75% { background-position: 0% 100%; }
 }
 
-/* ===== POKEMON TYPE VARIANTS ===== */
-
-/* Fire Type Card - Holographic with Fire Colors */
-ion-card.fire-type {
-  --background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #ff9ff3 100%);
+/* Image itself */
+.pokemon-image ion-img,
+.img {
+  position: relative;
+  z-index: 1;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
 }
 
-ion-card.fire-type::after {
+/* ===== POKEMON TYPE VARIANTS - Only for Image ===== */
+
+/* Fire Type Image */
+ion-card.fire-type .pokemon-image {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
+}
+
+ion-card.fire-type .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #ff4757, #ffa502, #ff6348, #ff3742, #ff5722, #ff4757
@@ -103,20 +122,12 @@ ion-card.fire-type::after {
   animation: holographicBorder 4s ease infinite;
 }
 
-ion-card.fire-type:hover {
-  box-shadow: 
-    0 20px 50px rgba(255, 71, 87, 0.4),
-    0 8px 20px rgba(255, 165, 2, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(255, 87, 34, 0.6);
+/* Water Type Image */
+ion-card.water-type .pokemon-image {
+  background: linear-gradient(135deg, #74b9ff 0%, #00cec9 100%);
 }
 
-/* Water Type Card - Holographic with Water Colors */
-ion-card.water-type {
-  --background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #00cec9 100%);
-}
-
-ion-card.water-type::after {
+ion-card.water-type .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #0984e3, #74b9ff, #00cec9, #0652dd, #3742fa, #0984e3
@@ -125,20 +136,12 @@ ion-card.water-type::after {
   animation: holographicBorder 4s ease infinite;
 }
 
-ion-card.water-type:hover {
-  box-shadow: 
-    0 20px 50px rgba(116, 185, 255, 0.4),
-    0 8px 20px rgba(9, 132, 227, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(0, 206, 201, 0.6);
+/* Grass Type Image */
+ion-card.grass-type .pokemon-image {
+  background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
 }
 
-/* Grass Type Card - Holographic with Grass Colors */
-ion-card.grass-type {
-  --background: linear-gradient(135deg, #55efc4 0%, #00b894 50%, #6c5ce7 100%);
-}
-
-ion-card.grass-type::after {
+ion-card.grass-type .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #00b894, #55efc4, #2ed573, #00a085, #1dd1a1, #00b894
@@ -147,20 +150,12 @@ ion-card.grass-type::after {
   animation: holographicBorder 4s ease infinite;
 }
 
-ion-card.grass-type:hover {
-  box-shadow: 
-    0 20px 50px rgba(0, 184, 148, 0.4),
-    0 8px 20px rgba(85, 239, 196, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(45, 213, 115, 0.6);
+/* Electric Type Image */
+ion-card.electric-type .pokemon-image {
+  background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%);
 }
 
-/* Electric Type Card - Holographic with Electric Colors */
-ion-card.electric-type {
-  --background: linear-gradient(135deg, #f9ca24 0%, #f0932b 50%, #eb4d4b 100%);
-}
-
-ion-card.electric-type::after {
+ion-card.electric-type .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #f9ca24, #f0932b, #ffdd59, #f39801, #e55039, #f9ca24
@@ -169,20 +164,12 @@ ion-card.electric-type::after {
   animation: holographicBorder 4s ease infinite;
 }
 
-ion-card.electric-type:hover {
-  box-shadow: 
-    0 20px 50px rgba(249, 202, 36, 0.4),
-    0 8px 20px rgba(240, 147, 43, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(255, 221, 89, 0.6);
+/* Psychic Type Image */
+ion-card.psychic-type .pokemon-image {
+  background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 100%);
 }
 
-/* Psychic Type Card - Holographic with Psychic Colors */
-ion-card.psychic-type {
-  --background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 50%, #fd79a8 100%);
-}
-
-ion-card.psychic-type::after {
+ion-card.psychic-type .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #6c5ce7, #a29bfe, #fd79a8, #5f3dc4, #7c4dff, #6c5ce7
@@ -191,36 +178,20 @@ ion-card.psychic-type::after {
   animation: holographicBorder 4s ease infinite;
 }
 
-ion-card.psychic-type:hover {
-  box-shadow: 
-    0 20px 50px rgba(108, 92, 231, 0.4),
-    0 8px 20px rgba(162, 155, 254, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 30px rgba(253, 121, 168, 0.6);
-}
-
 /* ===== SPECIAL RARE CARD STYLES ===== */
 
-/* Secret Rare Card - Enhanced Holographic */
-ion-card.secret-rare {
-  --background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffc048 100%);
+/* Secret Rare Image - Golden Holographic */
+ion-card.secret-rare .pokemon-image {
+  background: linear-gradient(135deg, #ffd700 0%, #ffffff 50%, #ffd700 100%);
 }
 
-ion-card.secret-rare::after {
+ion-card.secret-rare .pokemon-image::after {
   background: linear-gradient(
     45deg,
     #ffd700, #ffffff, #ffd700, #ffed4e, #ffffff, #ffc048, #ffd700
   );
   background-size: 400% 400%;
   animation: goldenHolographic 2s ease infinite;
-}
-
-ion-card.secret-rare:hover {
-  box-shadow: 
-    0 25px 60px rgba(255, 215, 0, 0.5),
-    0 10px 25px rgba(255, 215, 0, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8),
-    0 0 40px rgba(255, 215, 0, 0.7);
 }
 
 @keyframes goldenHolographic {
@@ -232,36 +203,62 @@ ion-card.secret-rare:hover {
 
 /* Pokemon Card Header */
 ion-card ion-card-header {
-  position: relative;
-  z-index: 2;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
+  background: #f5f2ed; /* Crema más claro */
   border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid #e8e3d8;
+  padding: 20px;
 }
 
 ion-card ion-card-title {
   font-weight: bold;
-  font-size: 1.2em;
-  text-shadow: 
-    0 1px 2px rgba(0, 0, 0, 0.5),
-    0 0 10px rgba(255, 255, 255, 0.3);
+  font-size: 1.4em;
   color: #2c3e50;
+  letter-spacing: 0.5px;
 }
 
 ion-card ion-card-subtitle {
-  color: #7f8c8d;
+  color: #5a5a5a;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
 }
 
 /* Pokemon Card Content */
 ion-card ion-card-content {
-  position: relative;
-  z-index: 2;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(2px);
+  background: #faf8f3; /* Crema */
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Grid Styling for Pokemon Stats */
+ion-card ion-grid {
+  --ion-grid-padding: 0;
+}
+
+ion-card ion-row {
+  border-bottom: 1px solid #e8e3d8;
+  padding: 12px 0;
+  background: transparent;
+}
+
+ion-card ion-row:last-child {
+  border-bottom: none;
+}
+
+ion-card ion-col {
+  padding: 5px 10px;
+}
+
+ion-card ion-text {
+  color: #3a3a3a;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+/* Type Images Styling */
+ion-card ion-img {
+  max-width: 40px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -272,33 +269,56 @@ ion-card ion-card-content {
     border-radius: 12px;
   }
   
-  ion-card:hover {
-    transform: translateY(-3px) scale(1.01);
+  .pokemon-image {
+    margin: 15px;
   }
+  
+  ion-card ion-card-header {
+    padding: 15px;
+  }
+  
+  ion-card ion-card-content {
+    padding: 15px;
+  }
+}
+
+/* ===== ADDITIONAL STYLING FOR SPECIFIC CASES ===== */
+
+/* Stat Numbers Highlighting */
+ion-card ion-text:contains('48'),
+ion-card ion-text:contains('65'),
+ion-card ion-text:contains('50'),
+ion-card ion-text:contains('64'),
+ion-card ion-text:contains('43') {
+  font-weight: 600;
+  color: #2980b9;
+}
+
+/* Border styling for stat rows */
+.border-bottom {
+  border-bottom: 2px solid #e8e3d8 !important;
+  padding-bottom: 15px;
 }
 
 /* ===== USAGE EXAMPLES ===== */
 
-/* Example: Pokemon List Item - Holographic by default */
+/* Example: Pokemon Detail Page */
+.pokemon-detail ion-card {
+  margin: 15px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Example: Pokemon List Item */
 .pokemon-list ion-card {
   margin: 12px 8px;
   min-height: 200px;
 }
 
-/* Example: Featured Pokemon Card - Enhanced holographic */
+/* Example: Featured Pokemon Card */
 .featured-pokemon ion-card {
   margin: 20px;
   min-height: 300px;
-  border-width: 5px;
-}
-
-/* Example: Deck Builder Card - Scaled holographic */
-.deck-card ion-card {
-  margin: 5px;
-  transform: scale(0.9);
-  transition: all 0.2s ease;
-}
-
-.deck-card ion-card:hover {
-  transform: scale(1) translateY(-2px);
+  border-width: 3px;
 }
